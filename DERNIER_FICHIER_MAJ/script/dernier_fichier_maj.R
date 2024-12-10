@@ -33,7 +33,8 @@ colnames(list_dossier) <- c("Modif_F", "Chemin", "Fichier")
 # Détection du dernier fichier maj par dossiers 
 list_fichier <- list_dossier %>%
                 group_by(Chemin) %>%
-                summarize(Modif_F = max(Modif_F))
+                summarize(Modif_F = max(Modif_F)) %>%
+                filter(!is.na(mtime))
  
 # Ajout du nom de fichier
 list_fichier <- left_join(list_fichier, list_dossier) %>%
